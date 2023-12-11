@@ -1,24 +1,27 @@
 //your JS code here. If required.
 
-function getData(urls){
-	const request = new XMLHttpRequest();
-	for(let url of urls){
+function getData(index){
+	for (var i = 0; i < index.length; i++) {
 
-		 request.open('GET',`${url}`);
-         request.send();
-        
-        // to get the response that is sent
-        request.addEventListener('load',function(){
-         const data = JSON.parse(this.responseText);
-			console.log(data)
-		})
-	}
+    var url = index[i];
+
+    let request = new XMLHttpRequest();
+    request.open("GET", url);
+    request.onreadystatechange = function() {
+        if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+            var data = JSON.parse(request.responseText);
+            console.log(data);
+        }
+    }
+    request.send();
+}
          
 }
 
 const urls = [
   'https://jsonplaceholder.typicode.com/posts/1',
   'https://jsonplaceholder.typicode.com/posts/2',
-  'https://jsonplaceholder.typicode.com/posts/3'
+  'https://jsonplaceholder.typicode.com/posts/3',
+  
 ];
 getData(urls);
